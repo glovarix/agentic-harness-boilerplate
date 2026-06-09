@@ -1,12 +1,10 @@
 # outputs/
 
-Results land here — one file per run. This folder is git-ignored, so nothing in it is committed.
+Results land here — one file per run, named so a human can find it. This folder is git-ignored, so nothing in it is committed.
 
-**File name:** `{input_id}__{run_id}.json`
+**File name:** `{YYYY-MM-DD}-{slug}.md` — today's date plus a short kebab-case description (for example `2026-06-09-welcome-email.md`).
 
-**Fields:**
+**Each file holds:**
 
-- `input_id` — which input record this came from
-- `run_id` — which run produced it
-- `output` — the final answer
-- `notes` — anything worth flagging (caveats, follow-ups)
+- the result itself
+- a short note at the top saying which input it came from and anything worth flagging

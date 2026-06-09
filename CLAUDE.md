@@ -7,6 +7,20 @@ generate, test, and refine prompt templates and their outputs in a structured,
 repeatable way. There is no code. There are no scripts. Everything is plain
 text — Markdown and CSV.
 
+## Preferences
+
+At the start of every session, read `preferences.json` from the project root and
+apply these settings. If the file is missing, use the defaults shown. Never
+modify `preferences.json` unless the user explicitly asks.
+
+| Key | Default | Behaviour |
+| --- | --- | --- |
+| `confirmBeforeGenerate` | `true` | Announce what you are about to produce and confirm before generating. |
+| `confirmBeforeSave` | `true` | Ask before writing any file. |
+| `confirmBeforeCommit` | `true` | Ask before any git commit. |
+| `pushAfterCommit` | `false` | `true` — push to remote after each commit. `false` — commit locally only. |
+| `language` | `"en-GB"` | Writing language (`"en-GB"` or `"en-US"`). |
+
 ## What to read first
 
 Each folder has a `README.md` explaining what goes in it. Read these before

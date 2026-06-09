@@ -21,6 +21,7 @@ data/.gitkeep                         (empty file)
 README.md
 CLAUDE.md
 changelog.md
+preferences.json
 .gitignore
 ```
 
@@ -46,6 +47,20 @@ This is an artifact-only prompt engineering harness. It exists to help you
 generate, test, and refine prompt templates and their outputs in a structured,
 repeatable way. There is no code. There are no scripts. Everything is plain
 text — Markdown and CSV.
+
+## Preferences
+
+At the start of every session, read `preferences.json` from the project root and
+apply these settings. If the file is missing, use the defaults shown. Never
+modify `preferences.json` unless the user explicitly asks.
+
+| Key | Default | Behaviour |
+| --- | --- | --- |
+| `confirmBeforeGenerate` | `true` | Announce what you are about to produce and confirm before generating. |
+| `confirmBeforeSave` | `true` | Ask before writing any file. |
+| `confirmBeforeCommit` | `true` | Ask before any git commit. |
+| `pushAfterCommit` | `false` | `true` — push to remote after each commit. `false` — commit locally only. |
+| `language` | `"en-GB"` | Writing language (`"en-GB"` or `"en-US"`). |
 
 ## What to read first
 
@@ -108,6 +123,7 @@ A structured, artifact-only starter kit for running prompt-based work — for no
 - `outputs/` — results, one file per run (git-ignored)
 - `tests/` — plain-language checks to run before a batch
 - `.claude/` — reusable API payloads and command snippets
+- `preferences.json` — behaviour toggles (confirm before save/commit, language)
 
 `data/` and `outputs/` are git-ignored and must never be committed.
 ````
@@ -185,16 +201,14 @@ Delete this note once the folder has real content.
 ````
 # outputs/
 
-Results land here — one file per run. This folder is git-ignored, so nothing in it is committed.
+Results land here — one file per run, named so a human can find it. This folder is git-ignored, so nothing in it is committed.
 
-**File name:** `{input_id}__{run_id}.json`
+**File name:** `{YYYY-MM-DD}-{slug}.md` — today's date plus a short kebab-case description (for example `2026-06-09-welcome-email.md`).
 
-**Fields:**
+**Each file holds:**
 
-- `input_id` — which input record this came from
-- `run_id` — which run produced it
-- `output` — the final answer
-- `notes` — anything worth flagging (caveats, follow-ups)
+- the result itself
+- a short note at the top saying which input it came from and anything worth flagging
 ````
 
 ### `changelog.md` — write exactly:
@@ -211,6 +225,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Initial harness scaffold.
+````
+
+### `preferences.json` — write exactly:
+
+````
+{
+  "confirmBeforeGenerate": true,
+  "confirmBeforeSave": true,
+  "confirmBeforeCommit": true,
+  "pushAfterCommit": false,
+  "language": "en-GB"
+}
 ````
 
 ### `.gitignore` — write exactly:

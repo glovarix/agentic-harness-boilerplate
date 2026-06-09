@@ -17,5 +17,6 @@ A structured, artifact-only starter kit for running prompt-based work — for no
 - `outputs/` — results, one file per run (git-ignored)
 - `tests/` — plain-language checks to run before a batch
 - `.claude/` — reusable API payloads and command snippets
+- `preferences.json` — behaviour toggles (confirm before save/commit, language)
 
 `data/` and `outputs/` are git-ignored and must never be committed.

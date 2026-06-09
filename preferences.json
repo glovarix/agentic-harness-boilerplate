@@ -1,0 +1,7 @@
+{
+  "confirmBeforeGenerate": true,
+  "confirmBeforeSave": true,
+  "confirmBeforeCommit": true,
+  "pushAfterCommit": false,
+  "language": "en-GB"
+}
