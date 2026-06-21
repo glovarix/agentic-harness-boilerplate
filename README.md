@@ -1,22 +1,57 @@
 # Agentic Harness
 
-A structured, artifact-only starter kit for running prompt-based work — for non-coding activities. There is no code and there are no scripts, only Markdown and CSV files that describe your inputs, prompt templates, shared reference data, and workflow.
+Lean agentic OS — your rules, your sources, your outputs. Agent reads `CLAUDE.md`.
 
-## Quickstart
+---
 
-1. **Open this folder in your AI coding tool** (the one that reads `CLAUDE.md`).
-2. **Fill in the slots.** Each folder has a short `README.md` saying what goes in it — start with `inputs/`, then `templates/`. Delete those notes as you replace them with real content.
-3. **Run and review.** Process an input through your template; the result is written to `outputs/` (one file per run).
+## Your harness
 
-## What each folder is for
+*Fill this first. Agent reads every session.*
 
-- `inputs/` — your run inputs (records, personas, background docs)
-- `templates/` — your prompt templates and few-shot examples
-- `datasets/` — shared reference data used across runs
-- `logic/` — workflow and routing rules, one Markdown file each
-- `outputs/` — results, one file per run (git-ignored)
-- `tests/` — plain-language checks to run before a batch
-- `.claude/` — reusable API payloads and command snippets
-- `preferences.json` — behaviour toggles (confirm before save/commit, language)
+**Mission:** <!-- one sentence -->
 
-`data/` and `outputs/` are git-ignored and must never be committed.
+**Inputs:** <!-- context/sources/, pasted text, commands -->
+
+**Outputs:** <!-- what lands in outputs/ -->
+
+**Rules:** <!-- hard constraints -->
+
+**Non-goals:** <!-- what this never does -->
+
+---
+
+## Four folders
+
+```text
+context/  →  workspace/  →  outputs/
+     ↑            logic.md
+```
+
+| Folder | Job |
+| --- | --- |
+| `context/instructions/` | Your rules |
+| `context/sources/` | Read-only files (copy to workspace first) |
+| `workspace/` | Drafts, handoffs |
+| `outputs/` | Approved work |
+| `logic.md` | Your workflow + classification (edit this) |
+
+Behaviour → `preferences.json`. Mechanics → `CLAUDE.md`.
+
+---
+
+## Start
+
+1. Fill **Your harness** above
+2. Add rules in `context/instructions/`
+3. Edit `logic.md` when you know your workflow
+4. `/setup` then `/smoke-test`
+5. `context/sources/` → `workspace/` → `outputs/`
+
+| Command | When |
+| --- | --- |
+| `/orient` | Session start |
+| `/ask` | Pick a flow |
+| `/handoff` | Continue in fresh session |
+| `/smoke-test` | Check wiring |
+
+Fork → rename when stable (e.g. `agentic-myproject`).

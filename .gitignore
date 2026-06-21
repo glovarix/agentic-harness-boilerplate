@@ -1,6 +1,14 @@
+context/sources/**
+workspace/**
+outputs/**
+!context/instructions/example.md
+!context/sources/.gitkeep
+reference/
 data/
-outputs/*
-!outputs/README.md
+datasets/
+seed/
+inputs/
+templates/
 .DS_Store
 .env
 *.log

@@ -1,60 +1,108 @@
-# Agent Orientation — Agentic Harness
+# Agentic Harness — Agent OS
 
-## What this project is
-
-This is an artifact-only prompt engineering harness. It exists to help you
-generate, test, and refine prompt templates and their outputs in a structured,
-repeatable way. There is no code. There are no scripts. Everything is plain
-text — Markdown and CSV.
+Read every session. Framework only — domain lives in `README.md`, `context/`, `logic.md`.
 
 ## Preferences
 
-At the start of every session, read `preferences.json` from the project root and
-apply these settings. If the file is missing, use the defaults shown. Never
-modify `preferences.json` unless the user explicitly asks.
+Read `preferences.json`. Never modify unless asked.
 
 | Key | Default | Behaviour |
 | --- | --- | --- |
-| `confirmBeforeGenerate` | `true` | Announce what you are about to produce and confirm before generating. |
-| `confirmBeforeSave` | `true` | Ask before writing any file. |
-| `confirmBeforeCommit` | `true` | Ask before any git commit. |
-| `pushAfterCommit` | `false` | `true` — push to remote after each commit. `false` — commit locally only. |
-| `language` | `"en-GB"` | Writing language (`"en-GB"` or `"en-US"`). |
+| `confirmBeforeGenerate` | `true` | Confirm before generating |
+| `confirmBeforeSave` | `true` | Ask before writing files |
+| `confirmBeforeCommit` | `true` | Ask before git commit |
+| `confirmBeforeElevate` | `true` | Ask before workspace → outputs |
+| `pushAfterCommit` | `false` | Local commits only |
+| `commitOutputs` | `false` | Allow committing outputs/ |
+| `commitWorkspace` | `false` | Allow committing workspace/ |
+| `commitContext` | `false` | Allow committing context/instructions/ |
+| `runEvidenceCheck` | `true` | Inspect local files first |
+| `includeSanityCheck` | `true` | Post-job report |
+| `organizeByJob` | `true` | outputs/{job}/{date}/{slug}.* |
+| `language` | `"en-GB"` | en-GB or en-US |
 
-## What to read first
+## Non-negotiables
 
-Each folder has a `README.md` explaining what goes in it. Read these before
-doing anything else, in this order:
+- Read config + instructions before acting
+- Never invent — mark `[UNVERIFIED]`, gaps `—`, missing `[NEEDS SOURCE]`
+- Never silently overwrite or drop — discard artifact + new path/suffix
+- One clarifying question when blocked
+- Deliverable files over chat walls
+- Domain never in this file — use `context/`
+- No "Let me…" — act, report
+- Scripts for repetition; agent for judgment
+- Memory in-repo only
 
-1. `inputs/README.md` — understand the input structure
-2. `templates/README.md` — understand the prompt shape
-3. `logic/README.md` — understand how a run flows end to end
-4. `outputs/README.md` — understand where and how results are written
-5. `datasets/README.md` — understand what shared reference data is available
+## Orient (every session)
 
-## How inputs flow to outputs
+1. `preferences.json`
+2. `README.md` → **Your harness**
+3. `context/instructions/`, `logic.md`
+4. `context/sources/` if job needs files
 
-1. A run begins with an input record from `inputs/inputs_examples.csv`
-2. The input references a persona (`inputs/personas.csv`) and a context
-   (`inputs/long_contexts/`)
-3. Check `datasets/` for any reference data relevant to the input
-4. Check `logic/` for any workflow, rule, or routing logic that applies
-5. Assemble the prompt using `templates/base_prompt.tpl.md`, substituting
-   the four placeholders: {{system}}, {{context}}, {{examples}}, {{user_input}}
-6. Few-shot examples come from `templates/few_shot_examples.csv`
-7. Write the result to `outputs/`, following the naming convention in
-   `outputs/README.md`
-8. Log any template or persona change in `changelog.md`
+## Flow
 
-## Rules
+```text
+context/sources/  →  workspace/working/  →  outputs/
+         ↑ context/instructions/ + logic.md
+```
 
-- Never modify files in `templates/` without incrementing the version in
-  `changelog.md`
-- Never generate eval logic, scoring rubrics, or grading of any kind
-- If an input field is missing or ambiguous, check `inputs/inputs_schema.md`
-  before inferring
-- New workflows, rules, and logic belong in `logic/` — drop a new Markdown
-  file in; no other files need to change
-- New shared reference data belongs in `datasets/` — drop a new CSV
-  or Markdown file in; no other files need to change
-- Commands and API payloads → `.claude/`
+Copy sources before editing. Elevate only when `confirmBeforeElevate` allows.
+
+## Rule 0 — "What can you do?"
+
+From `README.md`, `logic.md`. No files. Suggest `/ask`.
+
+## Rule 1 — Classify (first match, then `logic.md`)
+
+| # | Signal | Action |
+| --- | --- | --- |
+| 1 | setup / configure | `/setup` |
+| 2 | smoke test / wiring | `/smoke-test` |
+| 3 | handoff | write `workspace/handoffs/{date}-{slug}.md` |
+| 4 | domain / rules / terms | edit `context/` |
+| 5 | workflow / logic | edit `logic.md` |
+| 6 | deliverable | Rules 3–6 |
+| 9 | unclear | Rule 2 |
+
+## Rule 2 — One question
+
+> "Deliverable, config change, or wiring check?"
+
+## Rule 3 — Evidence
+
+Read `context/sources/`, `context/instructions/`, `logic.md`, `workspace/`, prior `outputs/`. Missing = say so.
+
+## Rule 4 — Job loop
+
+Orient → classify → plan path → evidence → draft `workspace/working/` → confirm → publish `outputs/` → sanity `.report.md` → report next step.
+
+Small increments. No logic edits mid-batch.
+
+## Rule 5 — Outputs
+
+- Workspace: `{slug}.draft.*`, copies in `workspace/sources/`
+- Outputs: `{job}/{date}/{slug}.deliverable.*` + `{slug}.report.md` + `{slug}.discarded.csv` if anything dropped
+- Same-day rerun: `_{HHMMSS}` suffix
+- Optional: `outputs/job-log.csv`
+
+## Rule 6 — Git
+
+`context/sources/` always ignored. Flip `commit*` → sync `.gitignore`.
+
+## Rule 7 — Handoff
+
+Session full or ending mid-job → `workspace/handoffs/{date}-{slug}.md` with goal, done, decisions, open questions, next step, key paths. Fresh session reads file — not chat history.
+
+## Rule 8 — Smoke test
+
+Entry files exist. Four paths exist. No domain in this file. Commands: setup, orient, ask, smoke-test, handoff.
+
+## Separation
+
+| Generic | Yours |
+| --- | --- |
+| CLAUDE.md | README.md |
+| preferences.json | context/, logic.md |
+
+Add `scripts/` when ops go mechanical. Document in `logic.md`.

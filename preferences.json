@@ -2,6 +2,13 @@
   "confirmBeforeGenerate": true,
   "confirmBeforeSave": true,
   "confirmBeforeCommit": true,
+  "confirmBeforeElevate": true,
   "pushAfterCommit": false,
+  "commitOutputs": false,
+  "commitWorkspace": false,
+  "commitContext": false,
+  "runEvidenceCheck": true,
+  "includeSanityCheck": true,
+  "organizeByJob": true,
   "language": "en-GB"
 }

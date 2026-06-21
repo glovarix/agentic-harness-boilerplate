@@ -1,21 +1,23 @@
 # Changelog
 
-All notable changes to this harness are documented in this file.
+## [2.0.1] - 2026-06-21
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### Removed
+- `AGENTS.md` — redundant; `CLAUDE.md` is the single agent entry file
 
-## [0.2.0] - 2026-06-09
+## [2.0.0] - 2026-06-21
 
-### Added
-- `preferences.json` — session-start behaviour toggles (confirm before
-  generate/save/commit, push after commit, language), read by `CLAUDE.md`.
+Minimal structure: 14 files, four folders + `logic.md`.
 
-### Changed
-- `outputs/` files are now named `{YYYY-MM-DD}-{slug}.md` instead of
-  `{input_id}__{run_id}.json`, for human-readable, findable results.
+- Merged workflow, capabilities, and smoke checks into `CLAUDE.md` and `logic.md`
+- Removed `logic/`, `templates/`, `standards.md`, `config.md`, subfolder READMEs
+- `context/` = `instructions/` + `sources/` only
+- Twelve preference keys; rules 0–8; orient, ask, handoff commands
 
-## [0.1.0] - 2026-06-09
+## [1.2.0] - 2026-06-21
 
-### Added
-- Initial harness scaffold.
+Merged `reference/` into `context/sources/`.
+
+## [1.0.0] - 2026-06-21
+
+Initial scaffold.
